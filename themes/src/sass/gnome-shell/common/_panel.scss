@@ -34,8 +34,8 @@
 
 	// panel menus
 	.panel-button {
-		-natural-hpadding: 12px;
-		-minimum-hpadding: 12px;
+		-natural-hpadding: 6px;
+		-minimum-hpadding: 6px;
 		font-weight: bold;
 		color: $text-secondary;
 		transition-duration: 150ms;
@@ -228,8 +228,8 @@
   Gjs_appindicatorsupport_rgcjonas_gmail_com_indicatorStatusIcon_IndicatorStatusIcon.panel-button,
   Gjs_appindicatorsupport_rgcjonas_gmail_com_indicatorStatusIcon_AppIndicatorsIndicatorStatusIcon.panel-button {
 		// Fcitx
-		-natural-hpadding: 12px + $base_padding !important;
-		-minimum-hpadding: 12px + $base_padding !important;
+		-natural-hpadding: $base_padding !important;
+		-minimum-hpadding: $base_padding !important;
 	}
 
 	// indicator for active
