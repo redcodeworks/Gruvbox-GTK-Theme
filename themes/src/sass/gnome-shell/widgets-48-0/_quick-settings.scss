@@ -207,10 +207,7 @@
 }
 
 .quick-toggle-menu {
-	// Literal hex, not $popover -- see common/_popovers.scss for why (that
-	// variable is this fork's own disconnected palette choice, not the
-	// popover_bg_color GTK4 apps actually use).
-	background-color: if($variant == 'light', #f9f5d7, #504945) !important;
+	background-color: $popover !important;
 	color: $text !important;
 	border-radius: $base_radius + $base_padding * 2 !important;
 	padding: $base_padding * 2;
@@ -245,7 +242,7 @@
 			icon-size: $base_icon_size * 1.5; // a non-standard symbolic size but ok
 			border-radius: $base_radius;
 			padding: 1.5 * $base_padding;
-			background-color: on(if($variant == 'light', #f9f5d7, #504945), divider) !important;
+			background-color: on($popover, divider) !important;
 
 			&.active {
 				background-color: $primary !important;

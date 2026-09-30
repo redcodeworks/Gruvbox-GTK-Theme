@@ -24,11 +24,10 @@
 
 	.popup-menu-content {
 		padding: $base_padding;
-		// Literal hex, not $popover -- that SASS variable is this fork's own
-		// disconnected palette choice, not the Gruvbox Material popover_bg_color
-		// actually used by GTK4 apps (~/.config/gtk-4.0/gtk.css), which is what
-		// this needs to match for shell/app popover consistency.
-		background-color: if($variant == 'light', #f9f5d7, #504945);
+		// $popover itself is fixed to route through the real Gruvbox Material
+		// tiers now (see the $background/$surface/$base/etc. block in
+		// ../../colors.scss), so this can go back to the semantic variable.
+		background-color: $popover;
 		border-radius: $base_radius;
 		margin: 0;
 

@@ -152,22 +152,32 @@ $titlebar-indicator:                    if($variant == 'dark', currentColor, $pr
 $inverse-indicator:                     mix($primary, $white, 0%);
 $applet-primary:                        if($theme == 'grey' and variant == 'light' and $topbar == 'dark', $grey-200, $primary);
 
-$background:                            if($variant == 'light', background(a), background(f));
-$surface:                               if($variant == 'light', background(b), background(g));
-$base:                                  if($variant == 'light', background(c), background(h));
-$base-alt:                              if($variant == 'light', background(d), background(h));
-$card:                                  if($variant == 'light', background(b), background(h));
-$menu:                                  if($variant == 'light', $grey-150, $grey-850);
+// Gruvbox Material tiers, matching ~/.config/gtk-4.0/gtk.css exactly
+// (light: bg0 #f9f5d7 < bg1 #f5edca < bg2 #f3eac7 < bg3 #f2e5bc; dark:
+// bg0 #1d2021 < bg3 #3c3836 < bg5 #504945) -- replaces this fork's own
+// generic greyscale background()-function palette (background() itself
+// is left alone; only the variables consuming it here are redefined),
+// which was completely disconnected from Gruvbox Material and produced
+// e.g. notification bubbles/popovers in a cool neutral gray instead of
+// our warm palette. $text/$divider/$fill/$track/etc. below are all
+// computed FROM these via on(), so they automatically inherit correctly
+// contrasted values without needing their own edits.
+$background:                            if($variant == 'light', #f9f5d7, #1d2021);
+$surface:                               if($variant == 'light', #f5edca, #504945);
+$base:                                  if($variant == 'light', #f3eac7, #3c3836);
+$base-alt:                              if($variant == 'light', #f2e5bc, #3c3836);
+$card:                                  if($variant == 'light', #f5edca, #3c3836);
+$menu:                                  if($variant == 'light', #f5edca, #3c3836);
 
-$tooltip:                               if($variant == 'dark', rgba(darken(background(f), 3%), 0.9), rgba(darken(background(h), 3%), 0.9));
-$osd:                                   mix($primary, background(f), 0%);
-$scrim:                                 mix($primary, background(g), 0%);
-$scrim-alt:                             mix($primary, background(h), 0%);
+$tooltip:                               if($variant == 'dark', rgba(darken(#1d2021, 3%), 0.9), rgba(darken(#3c3836, 3%), 0.9));
+$osd:                                   if($variant == 'light', #f9f5d7, #1d2021);
+$scrim:                                 if($variant == 'light', #f5edca, #504945);
+$scrim-alt:                             if($variant == 'light', #f2e5bc, #3c3836);
 $scrim-inverse:                         rgba($white, 0.1);
-$titlebar:                              if($variant == 'light', background(a), background(f));
-$titlebar-backdrop:                     if($variant == 'light', background(a), background(f));
+$titlebar:                              if($variant == 'light', #f9f5d7, #1d2021);
+$titlebar-backdrop:                     if($variant == 'light', #f9f5d7, #1d2021);
 $titlebar-indicator:                    if($topbar  == 'dark', 	background(b), background(e));
-$popover:                               if($variant == 'light', background(a), background(g));
+$popover:                               if($variant == 'light', #f9f5d7, #504945);
 $panel-solid:                           if($topbar  == 'dark', 	background(f), background(d)); // for Unity panel which doesn't allow translucent colors
 $panel:                                 rgba($panel-solid, $panel_opacity);
 
