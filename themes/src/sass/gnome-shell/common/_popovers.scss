@@ -136,12 +136,15 @@
 		margin-bottom: 1.75em;
 
 		// Quick Settings and the Calendar/date-menu both carry this class.
-		// Matches the top bar's own background+transparency exactly
-		// (#panel in common/_panel.scss) rather than a flat opaque tier,
-		// per explicit request (2026-09-30) that these system popups read
-		// as an extension of the top bar rather than a distinct surface.
+		// Same $panel-solid tone as the top bar (#panel in common/_panel.scss)
+		// rather than a flat opaque tier, per explicit request (2026-09-30)
+		// that these system popups read as an extension of the top bar.
+		// Less transparent than the top bar's own 0.75 (neither GNOME Shell
+		// CSS nor Blur My Shell support blurring popup menus, so higher
+		// opacity is the only lever available for readability over busy
+		// windows underneath, per explicit report 2026-09-30).
 		.popup-menu-content {
-			background-color: rgba($panel-solid, 0.75);
+			background-color: rgba($panel-solid, 0.92);
 		}
 	}
 }
@@ -169,10 +172,9 @@
 	-boxpointer-gap: $base_margin;
 	-arrow-rise: 0px; // hide the beak on the menu
 
-	// Matches the top bar's own background+transparency, same treatment as
-	// .panel-menu above, per explicit request (2026-09-30).
+	// Same treatment as .panel-menu above -- see that comment.
 	.popup-menu-content {
-		background-color: rgba($panel-solid, 0.75);
+		background-color: rgba($panel-solid, 0.92);
 	}
 }
 
