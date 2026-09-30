@@ -24,10 +24,14 @@ $cakeisalie: 'This stylesheet is generated, DO NOT EDIT';
  */
 
 // Stage
-// stage {
-//   @include fontsize($font_size);
-//   color: $text;
-// }
+// Was left commented out (a stub) in this fork -- without it, any text
+// with no more specific color rule (e.g. app-folder-dialog's title)
+// inherits GNOME Shell's own compiled-in stage default (plain white)
+// instead of our palette. Reported (2026-09-30).
+stage {
+	@include fontsize($font_size);
+	color: $text;
+}
 
 /* General Typography */
 

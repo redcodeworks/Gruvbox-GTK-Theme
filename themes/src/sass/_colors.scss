@@ -178,7 +178,7 @@ $titlebar:                              if($variant == 'light', #f9f5d7, #1d2021
 $titlebar-backdrop:                     if($variant == 'light', #f9f5d7, #1d2021);
 $titlebar-indicator:                    if($topbar  == 'dark', 	background(b), background(e));
 $popover:                               if($variant == 'light', #f9f5d7, #504945);
-$panel-solid:                           if($topbar  == 'dark', 	background(f), background(d)); // for Unity panel which doesn't allow translucent colors
+$panel-solid:                           if($topbar  == 'dark', 	#282828, #f5edca); // for Unity panel which doesn't allow translucent colors
 $panel:                                 rgba($panel-solid, $panel_opacity);
 
 $button:                                if($variant == 'dark', on($background, secondary-fill), on($background, fill));

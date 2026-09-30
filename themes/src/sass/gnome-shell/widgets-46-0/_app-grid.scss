@@ -88,9 +88,12 @@ $app_folder_size: 720px;
 	height: $app_folder_size;
 	border-radius: $menu_radius * 3;
 	padding: $base_padding * 2;
-	background-color: $osd;
+	// Literal Gruvbox tier, not $osd -- same issue as the notification
+	// cards: $osd is our darkest (very desaturated) tier, which reads as
+	// cold/neutral rather than warm at this size. Reported (2026-09-30).
+	background-color: #3c3836;
 	border: 1px solid black;
-	box-shadow: inset 0 0 0 1px highlight($osd);
+	box-shadow: inset 0 0 0 1px highlight(#3c3836);
 
 	.folder-name-container {
 		padding: $base_padding * 4 $base_padding * 6;

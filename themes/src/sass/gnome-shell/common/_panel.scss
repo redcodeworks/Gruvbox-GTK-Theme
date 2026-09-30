@@ -10,11 +10,12 @@
 	box-shadow: none;
 	border: none;
 	height: $item_size + 3px;
-	background-color: if(
-		$variant == 'light',
-		rgba($white, 0.45),
-		rgba($black, 0.85)
-	);
+	// Was rgba($black, 0.85)/rgba($white, 0.45) -- raw black/white, not our
+	// Gruvbox tone, and not very transparent despite the variable name.
+	// $panel-solid now carries the actual Gruvbox tier; opacity lowered
+	// slightly for a more noticeably transparent top bar, per explicit
+	// request (2026-09-30).
+	background-color: rgba($panel-solid, 0.75);
 
 	@if $float == 'true' {
 		margin: 5px 10px 1px;
