@@ -67,6 +67,20 @@ OPTIONS:
 
   -l, --libadwaita        Link installed gtk-4.0 theme to config folder for all libadwaita app use this theme
 
+  -a, --auto-switch       Merge Light and Dark gtk-4.0 builds into one gtk.css using
+                          @media (prefers-color-scheme: dark), so libadwaita apps
+                          switch automatically with the system dark-mode preference.
+                          Implies -l, and builds both Light and Dark (this is the
+                          default when -c is omitted; if you do pass -c, include
+                          both light and dark). GTK4/libadwaita apps only ever read
+                          ~/.config/gtk-4.0/gtk.css -- gtk-theme-name and the
+                          separate gtk-dark.css file next to it are both ignored by
+                          libadwaita, so a static gtk.css can never auto-switch on its
+                          own. Verified live (2026-09-29): GTK4 re-evaluates
+                          @media (prefers-color-scheme: dark) in this file immediately
+                          when the system preference changes, including for
+                          @define-color declarations, no restart needed.
+
   -r, --remove,
   -u, --uninstall         Uninstall/Remove installed themes or links
 
@@ -215,6 +229,11 @@ while [[ $# -gt 0 ]]; do
             ;;
         -l | --libadwaita)
             libadwaita="true"
+            shift
+            ;;
+        -a | --auto-switch)
+            libadwaita="true"
+            auto_switch="true"
             shift
             ;;
         -c | --color)
@@ -566,6 +585,59 @@ link_theme() {
     done
 }
 
+# Merges the Light and Dark gtk-4.0 builds' gtk.css into one file, wrapping the
+# Dark build's rules in @media (prefers-color-scheme: dark) { ... }. libadwaita
+# only ever reads ~/.config/gtk-4.0/gtk.css (it hardcodes/ignores gtk-theme-name
+# entirely, and never reads the separate gtk-dark.css this script also
+# generates), so that one file has to contain both variants for automatic
+# switching to work at all. Assets are assumed identical between the Light and
+# Dark builds (true for every variant/tweak combination this theme ships) and
+# are taken from the Light build.
+merge_libadwaita() {
+    local dest="${1}"
+    local name="${2}"
+    local theme="${3}"
+    local size="${5}"
+    local ctype="${6}"
+
+    local LIGHT_DIR="${1}/${2}${3}-Light${5}${6}"
+    local DARK_DIR="${1}/${2}${3}-Dark${5}${6}"
+    local MERGED_DIR="${1}/${2}${3}${5}${6}"
+
+    if [[ ! -d "${LIGHT_DIR}/gtk-4.0" ]] || [[ ! -d "${DARK_DIR}/gtk-4.0" ]]; then
+        echo "ERROR: --auto-switch needs both Light and Dark built first (-c light dark)." >&2
+        exit 1
+    fi
+
+    echo -e "\nMerging '${LIGHT_DIR}/gtk-4.0' + '${DARK_DIR}/gtk-4.0' into '${MERGED_DIR}/gtk-4.0' for libadwaita auto-switching..."
+
+    rm -rf "${HOME}/.config/gtk-4.0/"{assets,windows-assets,gtk.css,gtk-dark.css}
+
+    mkdir -p "${MERGED_DIR}/gtk-4.0"
+    rm -rf "${MERGED_DIR}/gtk-4.0/assets"
+    cp -r "${LIGHT_DIR}/gtk-4.0/assets" "${MERGED_DIR}/gtk-4.0/assets"
+
+    {
+        cat "${LIGHT_DIR}/gtk-4.0/gtk.css"
+        echo
+        echo "@media (prefers-color-scheme: dark) {"
+        cat "${DARK_DIR}/gtk-4.0/gtk.css"
+        echo "}"
+    } >"${MERGED_DIR}/gtk-4.0/gtk.css"
+
+    mkdir -p "${HOME}/.config/gtk-4.0"
+    ln -sf "${MERGED_DIR}/gtk-4.0/assets" "${HOME}/.config/gtk-4.0/assets"
+    ln -sf "${MERGED_DIR}/gtk-4.0/gtk.css" "${HOME}/.config/gtk-4.0/gtk.css"
+}
+
+merge_theme() {
+    for theme in "${themes[@]}"; do
+        for size in "${sizes[@]}"; do
+            merge_libadwaita "${dest:-$DEST_DIR}" "${name:-$THEME_NAME}" "$theme" '' "$size" "$ctype"
+        done
+    done
+}
+
 install_theme() {
     for theme in "${themes[@]}"; do
         for color in "${colors[@]}"; do
@@ -620,7 +692,9 @@ if [[ "$uninstall" == 'true' ]]; then
     fi
 else
     install_package && tweaks_temp && gnome_shell_version && install_theme
-    if [[ "$libadwaita" == 'true' ]]; then
+    if [[ "$auto_switch" == 'true' ]]; then
+        uninstall_link && merge_theme
+    elif [[ "$libadwaita" == 'true' ]]; then
         uninstall_link && link_theme
     fi
 fi
