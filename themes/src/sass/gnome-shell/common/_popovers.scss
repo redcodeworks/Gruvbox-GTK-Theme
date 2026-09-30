@@ -135,6 +135,14 @@
 	&.panel-menu {
 		-boxpointer-gap: $base_margin; // distance from the panel
 		margin-bottom: 1.75em;
+
+		// Quick Settings and the Calendar/date-menu both carry this class --
+		// darker than a regular context menu's popup-menu-content
+		// (window_bg_color, not popover_bg_color), per explicit request
+		// (2026-09-30) to distinguish system panels from small context menus.
+		.popup-menu-content {
+			background-color: if($variant == 'light', #f5edca, #282828);
+		}
 	}
 }
 
