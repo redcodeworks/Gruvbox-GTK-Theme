@@ -6,5 +6,5 @@
 #overviewGroup {
 	// Was $grey-950 (raw greyscale, near-black) -- this is the rule that
 	// actually wins over common/_overview.scss's own #overviewGroup.
-	background-color: if($variant == 'light', #f5edca, #282828);
+	background-color: $overview-bg;
 }

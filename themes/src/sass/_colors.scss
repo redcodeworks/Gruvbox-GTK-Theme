@@ -162,6 +162,7 @@ $applet-primary:                        if($theme == 'grey' and variant == 'ligh
 // our warm palette. $text/$divider/$fill/$track/etc. below are all
 // computed FROM these via on(), so they automatically inherit correctly
 // contrasted values without needing their own edits.
+$overview-bg:                           if($variant == 'light', #f5edca, #282828);
 $background:                            if($variant == 'light', #f9f5d7, #1d2021);
 $surface:                               if($variant == 'light', #f5edca, #504945);
 $base:                                  if($variant == 'light', #f3eac7, #3c3836);
