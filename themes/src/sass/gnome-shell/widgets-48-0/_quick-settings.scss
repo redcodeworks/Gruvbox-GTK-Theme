@@ -4,9 +4,12 @@
 	// Direct override rather than relying on the .popup-menu.panel-menu
 	// .popup-menu-content ancestor rule (in common/_popovers.scss) -- that
 	// rule alone didn't reach Quick Settings for some reason (it did reach
-	// Calendar/date-menu, which shares the same window_bg_color treatment),
-	// so this paints over whatever the ancestor is actually showing.
-	background-color: if($variant == 'light', #f5edca, #282828) !important;
+	// Calendar/date-menu, which shares the same treatment), so this paints
+	// over whatever the ancestor is actually showing. Matches the top bar's
+	// own background+transparency (rgba($panel-solid, 0.75), same as
+	// #panel in common/_panel.scss and the ancestor rule above),
+	// per explicit request (2026-09-30).
+	background-color: rgba($panel-solid, 0.75) !important;
 	padding: $base_padding * 3 !important;
 	border-radius: $base_radius * 2 !important;
 	margin-top: $base_padding !important;

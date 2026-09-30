@@ -111,9 +111,11 @@
 	.popup-menu & {
 		border-radius: $base_radius;
 		color: $text-disabled;
-		// Literal Gruvbox tier, not lighten($background, N%) -- see
-		// widgets-48-0/_message-list.scss for why.
-		background-color: #3c3836;
+		// $card, not lighten($background, N%) -- see
+		// widgets-48-0/_message-list.scss for why. Was a literal Gruvbox hex
+		// until parameterized so other palette forks of this theme get
+		// their own card tier here instead of Gruvbox's.
+		background-color: $card;
 		border: 1px solid $window-border;
 		box-shadow: inset 0 0 0 1px highlight($popover);
 		// bit of a hack here with border since we can't have double box-shadow
@@ -121,12 +123,12 @@
 		&:hover,
 		&:focus {
 			color: rgba($primary, 0.5);
-			background-color: #504945;
+			background-color: $popover;
 		}
 
 		&:active {
 			color: $text;
-			background-color: #3c3836;
+			background-color: $card;
 			box-shadow: none !important;
 		}
 
@@ -138,11 +140,11 @@
 	}
 
 	&:second-in-stack {
-		background-color: #282828;
+		background-color: $overview-bg;
 	}
 
 	&:lower-in-stack {
-		background-color: #3c3836;
+		background-color: $card;
 		border: 1px solid transparentize($divider, 0.2);
 	}
 
