@@ -168,6 +168,12 @@
 .background-menu {
 	-boxpointer-gap: $base_margin;
 	-arrow-rise: 0px; // hide the beak on the menu
+
+	// Matches the top bar's own background+transparency, same treatment as
+	// .panel-menu above, per explicit request (2026-09-30).
+	.popup-menu-content {
+		background-color: rgba($panel-solid, 0.75);
+	}
 }
 
 // system status popover menu
