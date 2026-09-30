@@ -24,7 +24,11 @@
 
 	.popup-menu-content {
 		padding: $base_padding;
-		background-color: if($variant == 'light', rgba($white, 0.9), $black);
+		// Literal hex, not $popover -- that SASS variable is this fork's own
+		// disconnected palette choice, not the Gruvbox Material popover_bg_color
+		// actually used by GTK4 apps (~/.config/gtk-4.0/gtk.css), which is what
+		// this needs to match for shell/app popover consistency.
+		background-color: if($variant == 'light', #f9f5d7, #504945);
 		border-radius: $base_radius;
 		margin: 0;
 
@@ -49,19 +53,19 @@
 			border: none;
 			box-shadow: none;
 			color: $text !important;
-			background-color: $divider !important;
+			background-color: rgba($primary, 0.25) !important;
 			border-radius: $base_radius $base_radius 0 0 !important;
 
 			&:focus,
 			&:hover,
 			&.selected {
 				color: $text !important;
-				background-color: $overlay-hover !important;
+				background-color: rgba($primary, 0.35) !important;
 			}
 
 			&:active {
 				color: $text !important;
-				background-color: $overlay-active !important;
+				background-color: rgba($primary, 0.45) !important;
 			}
 
 			&:insensitive {
@@ -73,14 +77,14 @@
 		&:hover,
 		&.selected {
 			color: $text !important;
-			background-color: $divider !important;
+			background-color: rgba($primary, 0.25) !important;
 			transition-duration: 0;
 		}
 
 		&:active,
 		&.selected:active {
 			color: $text !important;
-			background-color: $track !important;
+			background-color: rgba($primary, 0.35) !important;
 		}
 
 		&:insensitive {
