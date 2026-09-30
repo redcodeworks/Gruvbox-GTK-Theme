@@ -80,6 +80,10 @@ OPTIONS:
                           @media (prefers-color-scheme: dark) in this file immediately
                           when the system preference changes, including for
                           @define-color declarations, no restart needed.
+                          This is now the DEFAULT when neither -l nor -N is given.
+
+  -N, --no-link           Build theme(s) only, skip linking/merging into
+                          ~/.config/gtk-4.0 entirely. Overrides the -a default.
 
   -r, --remove,
   -u, --uninstall         Uninstall/Remove installed themes or links
@@ -234,6 +238,10 @@ while [[ $# -gt 0 ]]; do
         -a | --auto-switch)
             libadwaita="true"
             auto_switch="true"
+            shift
+            ;;
+        -N | --no-link)
+            no_link="true"
             shift
             ;;
         -c | --color)
@@ -415,6 +423,14 @@ fi
 
 if [[ "${#sizes[@]}" -eq 0 ]]; then
     sizes=("${SIZE_VARIANTS[0]}")
+fi
+
+# Auto-switch is the default: unless the user explicitly asked for a static
+# link (-l), opted out entirely (-N/--no-link), or is uninstalling, merge
+# Light+Dark and link them for automatic libadwaita dark-mode switching.
+if [[ "$libadwaita" != 'true' ]] && [[ "$no_link" != 'true' ]] && [[ "$uninstall" != 'true' ]]; then
+    libadwaita="true"
+    auto_switch="true"
 fi
 
 #  Check command avalibility
