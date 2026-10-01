@@ -2,7 +2,12 @@
 
 %popover_bubble {
 	color: $text-secondary;
-	background-color: $fill;
+	// $card, not $fill -- $fill is alpha-based (on($background, fill)),
+	// which compounded with the now-transparent popup background behind it
+	// (World Clocks rows, Weather hourly bubbles) instead of reading as a
+	// solid tile. Per explicit report (2026-10-01) that the transparency
+	// should apply only to the popup background, not tiles/cards inside it.
+	background-color: $card;
 	border-radius: $base_radius;
 	border: none;
 	box-shadow: none;
@@ -282,7 +287,8 @@
 		margin: 6px $base_margin / 2 !important;
 		padding: 0;
 		border-radius: $base_radius;
-		background-color: $fill;
+		// $card, not $fill -- see %popover_bubble above for why.
+		background-color: $card;
 		color: $text-disabled;
 		@extend %smaller;
 		font-weight: bold;

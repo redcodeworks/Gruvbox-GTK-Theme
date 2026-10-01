@@ -41,7 +41,12 @@
 }
 
 .quick-toggle {
-	background-color: $divider !important;
+	// $card, not $divider -- $divider is alpha-based (on($background, ...)),
+	// which compounded with the now-transparent popup background behind it
+	// instead of reading as a solid tile. Per explicit report (2026-10-01)
+	// that the transparency should apply only to the popup background, not
+	// the tiles/cards inside it.
+	background-color: $card !important;
 	color: if($variant == 'light', $white, $black);
 
 	&:hover {
@@ -54,7 +59,11 @@
 	}
 
 	&:checked {
-		background-color: rgba($primary, 0.95) !important;
+		// Solid $primary, not rgba($primary, 0.95) -- still technically
+		// transparent, and this is a persistent "on" state, not a
+		// transient hover/active tint, so the same no-transparency rule
+		// applies (2026-10-01).
+		background-color: $primary !important;
 		color: if($variant == 'light', $white, $black);
 
 		&:hover {
@@ -147,7 +156,8 @@
 
 .quick-toggle-has-menu {
 	& .quick-toggle-menu-button {
-		background-color: $divider !important;
+		// $card, not $divider -- see .quick-toggle above for why.
+		background-color: $card !important;
 		color: if($variant == 'light', $black, $white);
 
 		&:hover {
@@ -160,7 +170,9 @@
 		}
 
 		&:checked {
-			background-color: rgba($primary, 0.75) !important;
+			// Solid $primary, not rgba($primary, 0.75) -- see .quick-toggle
+			// above for why (2026-10-01).
+			background-color: $primary !important;
 			color: if($variant == 'light', $white, $black);
 
 			&:hover {
@@ -195,7 +207,9 @@
 	}
 
 	.icon-button {
-		background-color: $button !important;
+		// $card, not $button -- $button is alpha-based, see .quick-toggle
+		// above for why that's a problem here.
+		background-color: $card !important;
 		color: $primary !important;
 		border-radius: $base_radius;
 		padding: $base_padding * 1.5;
@@ -270,7 +284,8 @@
 	}
 
 	.icon-button {
-		background-color: $button;
+		// $card, not $button -- see .quick-toggle above for why.
+		background-color: $card;
 		color: $primary !important;
 		border-radius: $base_radius;
 		@extend %button;
