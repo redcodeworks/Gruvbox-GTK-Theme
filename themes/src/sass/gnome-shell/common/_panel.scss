@@ -10,12 +10,12 @@
 	box-shadow: none;
 	border: none;
 	height: $item_size + 3px;
-	// Was rgba($black, 0.85)/rgba($white, 0.45) -- raw black/white, not our
-	// Gruvbox tone, and not very transparent despite the variable name.
-	// $panel-solid now carries the actual Gruvbox tier; opacity lowered
-	// slightly for a more noticeably transparent top bar, per explicit
-	// request (2026-09-30).
-	background-color: rgba($panel-solid, 0.75);
+	// Solid $panel-solid, not rgba(..., 0.75) -- top bar transparency is
+	// being handled by the Blur My Shell extension instead, per explicit
+	// request (2026-10-08), so this reverts to opaque (was rgba($black,
+	// 0.85)/rgba($white, 0.45) originally -- raw black/white, not our
+	// Gruvbox tone -- before $panel-solid was introduced on 2026-09-30).
+	background-color: $panel-solid;
 
 	@if $float == 'true' {
 		margin: 5px 10px 1px;

@@ -5,12 +5,10 @@
 	// .popup-menu-content ancestor rule (in common/_popovers.scss) -- that
 	// rule alone didn't reach Quick Settings for some reason (it did reach
 	// Calendar/date-menu, which shares the same treatment), so this paints
-	// over whatever the ancestor is actually showing. Same $panel-solid
-	// tone as the top bar (#panel in common/_panel.scss) and the ancestor
-	// rule above, but less transparent (0.92 vs the top bar's 0.75) --
-	// popup menu text was hard to read over busy windows underneath at
-	// the top bar's opacity, per explicit report (2026-09-30).
-	background-color: rgba($panel-solid, 0.92) !important;
+	// over whatever the ancestor is actually showing. Solid $panel-solid,
+	// not rgba(..., 0.92) -- transparency here is being handled by the
+	// Blur My Shell extension instead, per explicit request (2026-10-08).
+	background-color: $panel-solid !important;
 	padding: $base_padding * 3 !important;
 	border-radius: $base_radius * 2 !important;
 	margin-top: $base_padding !important;
