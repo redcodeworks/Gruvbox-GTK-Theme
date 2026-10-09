@@ -88,18 +88,17 @@
 		margin-right: $base_padding;
 	}
 
+	// Solid $panel-solid, matching #panel (the top bar) exactly -- was
+	// $panel (alpha 0.6) here and raw rgba($black, 0.85) below, neither
+	// tied to the same tone as the top bar, so the dash and top bar
+	// visibly differed once Blur My Shell (not this theme) took over
+	// transparency duties. Per explicit report (2026-10-09).
 	&.dashtodock #dash .dash-background {
-		background-color: $panel;
+		background-color: $panel-solid;
 	}
 
 	#dash .dash-background {
-		// default-mode
-		// background-color: $panel;
-		background-color: if(
-			$variant == 'light',
-			rgba($white, 0.45),
-			rgba($black, 0.85)
-		);
+		background-color: $panel-solid;
 
 		@if $float == 'true' {
 			border: 2px solid $primary;

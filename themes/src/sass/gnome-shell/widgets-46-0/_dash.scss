@@ -1,12 +1,10 @@
 /* Dash */
 
-// uses system colors
-// $dash_background_color: on($osd, divider);
-$dash_background_color: if(
-	$variant == 'light',
-	rgba($white, 0.35),
-	rgba($base, 0.65)
-);
+// Solid $panel-solid, matching #panel (the top bar) exactly -- was
+// rgba($base/$white, 0.65/0.35), a different tier than the top bar and
+// still alpha-based even though Blur My Shell (not this theme) now
+// owns transparency. Per explicit report (2026-10-09).
+$dash_background_color: $panel-solid;
 
 $dash_placeholder_size: 32px;
 $dash_padding: $base_padding * 2;
