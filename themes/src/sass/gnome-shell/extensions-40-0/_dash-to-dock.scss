@@ -105,6 +105,18 @@
 		}
 	}
 
+	// dash-to-dock's own stylesheet forces height:0 on the bottom/
+	// bottom.extended dash separator; override it explicitly so the
+	// divider is actually visible for that dock position. Per explicit
+	// report (2026-10-09, carried over from a parallel session that had
+	// edited the compiled CSS directly instead of this source file).
+	&.bottom #dash .dash-separator,
+	&.bottom.extended #dash .dash-separator {
+		width: 2px !important;
+		height: 28px !important;
+		background-color: rgba($white, 0.6) !important;
+	}
+
 	.app-well-app-running-dot {
 		background-color: on($panel, track) !important;
 	}
@@ -179,7 +191,11 @@
 		// overview-mode #1
 		// background-color: rgba($primary, 0.3);
 		background-color: on(black, divider);
-		border: 2px solid transparent;
+		// none, not 2px solid transparent -- same seam issue as #panel's
+		// overview border above. Per explicit report (2026-10-09, carried
+		// over from a parallel session that had edited the compiled CSS
+		// directly instead of this source file).
+		border: none;
 	}
 
 	&.opaque:overview,

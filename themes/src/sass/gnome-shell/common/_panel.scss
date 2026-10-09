@@ -26,7 +26,11 @@
 	// the rounded outset corners
 	.panel-corner {
 		-panel-corner-radius: 0;
-		-panel-corner-background-color: $panel;
+		// Solid $panel-solid, not $panel (alpha 0.6) -- matches the solid
+		// #panel background above. Per explicit report (2026-10-09, carried
+		// over from a parallel session that had edited the compiled CSS
+		// directly instead of this source file).
+		-panel-corner-background-color: $panel-solid;
 		-panel-corner-border-width: 2px;
 		-panel-corner-border-color: transparent;
 		-panel-corner-opacity: 1;
@@ -167,7 +171,11 @@
 	&.lock-screen {
 		background-color: transparent;
 		box-shadow: none;
-		border: 2px solid transparent;
+		// none, not 2px solid transparent -- a "transparent" border still
+		// occupies layout space and showed as a visible 2px seam in the
+		// overview. Per explicit report (2026-10-09, carried over from a
+		// parallel session that had edited the compiled CSS directly).
+		border: none;
 
 		StLabel,
 		StIcon {
